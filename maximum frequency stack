@@ -1,0 +1,26 @@
+class FreqStack {
+public:
+    unordered_map<int,int> freq;
+    unordered_map<int,stack<int>> gstack;
+    int maxf = 0;
+    FreqStack() {
+        
+    }
+    
+    void push(int val) {
+        freq[val]++;
+        maxf = max(maxf,freq[val]);
+        gstack[freq[val]].push(val);
+    }
+    
+    int pop() {
+        int top_max = gstack[maxf].top();
+        gstack[maxf].pop();
+        freq[top_max]--;
+        
+        if(gstack[maxf].size()==0){
+            maxf--;
+        }
+        return top_max;
+    }
+};
